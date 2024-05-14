@@ -4,7 +4,7 @@ import Script from 'next/script';
 export default function Scripts() {
   return (
     <>
-      <Script id="flexible">
+      {/* <Script id="flexible">
         {`
         (function flexible(window, document) {
           const designWidthDesktop = 1920; // PC端设计稿宽度
@@ -31,7 +31,7 @@ export default function Scripts() {
           document.addEventListener('DOMContentLoaded', setRemUnit, false);
         })(window, document);
         `}
-      </Script>
+      </Script> */}
       {process.env.NODE_ENV === 'production' && (
         <Script id="debugger">
           {`
