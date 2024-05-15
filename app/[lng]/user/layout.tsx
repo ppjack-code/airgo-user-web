@@ -57,14 +57,15 @@ export default function UserLayout({
     },
   ];
   const pathname = usePathname();
+  const currentHref = pathname.includes(lng) ? pathname : `/${lng}${pathname}`;
 
   return (
     <div className="container flex gap-6 align-top">
-      <nav className="text-muted-foreground sticky top-[84px] hidden h-96 w-52 shrink-0 flex-col gap-2 md:flex lg:flex">
+      <nav className="sticky top-[84px] hidden h-96 w-52 shrink-0 flex-col gap-2 text-muted-foreground md:flex lg:flex">
         {navs.map((nav, index) => (
           <Link href={nav.href} key={index}>
             <Button
-              variant={pathname === nav.href ? 'default' : 'ghost'}
+              variant={currentHref === nav.href ? 'default' : 'ghost'}
               size="lg"
               className="w-full justify-start"
             >

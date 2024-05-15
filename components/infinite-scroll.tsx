@@ -9,7 +9,7 @@ interface InfiniteScrollProps<T> {
   hasMore: boolean;
   loadMore: () => void;
   dataSource?: Array<T>;
-  renderItem: (data: T) => ReactNode;
+  renderItem?: (data: T) => ReactNode;
   renderSkeleton?: () => ReactNode;
 }
 
@@ -21,6 +21,7 @@ export default function InfiniteScroll<T>({
   loadMore,
   hasMore,
   className,
+  children,
 }: InfiniteScrollProps<T>) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -47,9 +48,10 @@ export default function InfiniteScroll<T>({
   return (
     <>
       <div className={className}>
-        {dataSource.map((data) => {
-          return renderItem(data);
-        })}
+        {children ||
+          dataSource.map((data) => {
+            return renderItem(data);
+          })}
         {loading && renderSkeleton?.()}
       </div>
       <div ref={ref}></div>

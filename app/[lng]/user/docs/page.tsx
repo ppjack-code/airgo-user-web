@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { postCustomerArticleGetArticleList } from '@/service/api/customerApiArticle';
 import { useConfig } from '@/stores/config';
@@ -91,7 +90,7 @@ export default function Docs() {
           </CardHeader>
           <CardContent>
             <Markdown
-              className="prose dark:prose-invert max-w-none"
+              className="prose max-w-none dark:prose-invert"
               remarkPlugins={[remarkGfm]}
               components={{
                 code(props) {
@@ -142,11 +141,6 @@ export default function Docs() {
             </CardHeader>
           </Card>
         )}
-        renderSkeleton={() =>
-          Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className="w-full rounded-xl" />
-          ))
-        }
       />
     </Fragment>
   );

@@ -3,6 +3,7 @@ import { getPublicServerGetPublicSetting } from '@/service/api/publicApiServer';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import { proxy, useSnapshot } from 'valtio';
+import { subscribeKey } from 'valtio/utils';
 
 export interface IUserInfo {
   token: string;
@@ -12,8 +13,23 @@ export interface IUserInfo {
 
 export const userInfo = proxy<IUserInfo>({
   token: Cookies.get('Authorization') || '',
-  user: null,
-  publicConfig: null,
+  user: getLocalStorage('user'),
+  publicConfig: getLocalStorage('publicConfig'),
+});
+
+function getLocalStorage(key: string) {
+  if (typeof localStorage === 'undefined') return null;
+  return localStorage.getItem(key)
+    ? JSON.parse(localStorage.getItem(key) as string)
+    : null;
+}
+
+subscribeKey(userInfo, 'publicConfig', () => {
+  localStorage.setItem('publicConfig', JSON.stringify(userInfo.user));
+});
+
+subscribeKey(userInfo, 'user', () => {
+  localStorage.setItem('user', JSON.stringify(userInfo.user));
 });
 
 export function userLogin(token: string) {
@@ -38,7 +54,7 @@ export function userLogout() {
 export function useUserInfo() {
   const { user, token } = useSnapshot(userInfo);
   const { refetch, isFetching } = useQuery({
-    enabled: !!token,
+    enabled: Boolean(token && !user?.id),
     queryKey: ['getCustomerUserGetUserInfo'],
     queryFn: async () => {
       const result = await getCustomerUserGetUserInfo();

@@ -124,9 +124,9 @@ export default function User() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>最新公告</CardTitle>
-            <BellRing className="text-muted-foreground size-5" />
+            <BellRing className="size-5 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="text-muted-foreground pt-4 text-sm">
+          <CardContent className="pt-4 text-sm text-muted-foreground">
             暂无公告
           </CardContent>
         </Card>
@@ -135,7 +135,7 @@ export default function User() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">账户余额</CardTitle>
-            <CreditCard className="text-muted-foreground size-5" />
+            <CreditCard className="size-5 text-muted-foreground" />
           </CardHeader>
           <CardContent className="text-2xl font-bold">
             {userInfo?.balance.toFixed(2)}
@@ -144,7 +144,7 @@ export default function User() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">佣金总额</CardTitle>
-            <DollarSign className="text-muted-foreground size-5" />
+            <DollarSign className="size-5 text-muted-foreground" />
           </CardHeader>
           <CardContent className="text-2xl font-bold">
             {CommissionSummary.data.total_commission_amount}
@@ -153,7 +153,7 @@ export default function User() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">邀请的人数</CardTitle>
-            <Users className="text-muted-foreground size-5" />
+            <Users className="size-5 text-muted-foreground" />
           </CardHeader>
           <CardContent className="text-2xl font-bold">
             {CommissionSummary.data.total_invitation}
@@ -257,7 +257,7 @@ export default function User() {
                   defaultValue="0"
                   className="w-full"
                 >
-                  {config?.backend_url.map((url: string, index: number) => {
+                  {config?.backend_url?.map((url: string, index: number) => {
                     const subAddress = `${url}/api/public/sub/${item.sub_uuid.replace(/-/g, '')}/${config.sub_name}`;
                     return (
                       <AccordionItem value={index.toString()} key={index}>
@@ -267,14 +267,14 @@ export default function User() {
                               订阅地址 {index + 1}
                             </CardTitle>
                             <span
-                              className="text-muted-foreground hover:bg-accent mr-4 flex cursor-pointer rounded p-2 text-sm"
+                              className="mr-4 flex cursor-pointer rounded p-2 text-sm text-muted-foreground hover:bg-accent"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 navigator.clipboard.writeText(subAddress);
                                 toast.success('复制成功');
                               }}
                             >
-                              <Copy className="text-muted-foreground mr-2 size-5" />
+                              <Copy className="mr-2 size-5 text-muted-foreground" />
                               复制
                             </span>
                           </div>
@@ -296,7 +296,7 @@ export default function User() {
                                   width={102}
                                   height={102}
                                 />
-                                <span className="text-muted-foreground text-sm">
+                                <span className="text-sm text-muted-foreground">
                                   {app.name}
                                 </span>
                               </Button>
@@ -312,7 +312,7 @@ export default function User() {
                               bgColor="transparent"
                               fgColor="rgb(59, 130, 246)"
                             />
-                            <span className="text-muted-foreground text-sm">
+                            <span className="text-sm text-muted-foreground">
                               请扫描二维码订阅
                             </span>
                           </Button>
@@ -325,7 +325,7 @@ export default function User() {
             </Card>
           ))
         ) : (
-          <div className="text-muted-foreground pt-4 text-sm">暂无订阅</div>
+          <div className="pt-4 text-sm text-muted-foreground">暂无订阅</div>
         )}
       </section>
     </div>

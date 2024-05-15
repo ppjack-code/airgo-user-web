@@ -36,7 +36,7 @@ export default function Profile({
 }: {
   params: { lng: string };
 }) {
-  const { userInfo, getUserInfo } = useUserInfo();
+  const { userInfo } = useUserInfo();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

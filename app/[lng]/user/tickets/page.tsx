@@ -1,6 +1,15 @@
 'use client';
 
 import InfiniteScroll from '@/components/infinite-scroll';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,20 +29,40 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer';
-import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import {
   postCustomerTicketFirstTicket,
   postCustomerTicketGetUserTicketList,
+  postCustomerTicketNewTicket,
+  postCustomerTicketSendTicketMessage,
+  postCustomerTicketUpdateUserTicket,
 } from '@/service/api/customerApiTicket';
+import { useUserInfo } from '@/stores/userInfo';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { MessageSquareX, MessagesSquare, X } from 'lucide-react';
-import { Fragment, useState } from 'react';
+import { MessageSquareX, MessagesSquare, Send, X } from 'lucide-react';
+import { Fragment, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+const FormSchema = z.object({
+  title: z.string(),
+  details: z.string(),
+});
 
 export default function Tickets() {
-  const { data, fetchNextPage, hasNextPage, isFetching } =
+  const { userInfo } = useUserInfo();
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
     useSuspenseInfiniteQuery({
       queryKey: ['postCustomerTicketGetUserTicketList', 'ticket'],
       initialPageParam: 1,
@@ -74,8 +103,85 @@ export default function Tickets() {
       return res.data?.data || {};
     },
   });
+  const [message, setMessage] = useState('');
+  const ButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [open, setOpen] = useState(false);
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      title: '',
+      details: '',
+    },
+  });
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const result = await postCustomerTicketNewTicket({
+      ...data,
+      status: 'TicketProcessing',
+      ticket_message: [],
+      user_id: userInfo.id,
+    });
+    if (result.data.code === 0) {
+      setOpen(false);
+      refetch();
+    }
+  }
+
   return (
     <Fragment>
+      <div className="mb-4 flex items-center justify-between gap-2 text-lg">
+        <h2 className="font-semibold tracking-tight">工单列表</h2>
+        <AlertDialog open={open} onOpenChange={setOpen}>
+          <AlertDialogTrigger asChild>
+            <Button size="sm">新增工单</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-center">
+                新增工单
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="title"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>标题</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="details"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>标题</FormLabel>
+                          <FormControl>
+                            <Textarea className="resize-none" {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex items-center justify-center gap-4">
+                      <AlertDialogCancel>取消</AlertDialogCancel>
+                      <Button type="submit">创建</Button>
+                    </div>
+                  </form>
+                </Form>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
       <InfiniteScroll
         dataSource={dataSource}
         hasMore={hasNextPage}
@@ -110,7 +216,19 @@ export default function Tickets() {
               </span>
               {item.status === 'TICKET_PROCESSING' && (
                 <div className="flex gap-2">
-                  <Button size="sm" variant="destructive">
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={async () => {
+                      const result = await postCustomerTicketUpdateUserTicket({
+                        id: item.id,
+                        status: 'TICKET_CLOSED',
+                      });
+                      if (result.data.code === 0) {
+                        Ticket.refetch();
+                      }
+                    }}
+                  >
                     <MessageSquareX className="mr-2 size-5" /> 关闭工单
                   </Button>
                   <Button
@@ -146,11 +264,6 @@ export default function Tickets() {
             </CardFooter>
           </Card>
         )}
-        renderSkeleton={() =>
-          Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className="h-48 w-full rounded-xl" />
-          ))
-        }
       />
       <Drawer
         open={!!ticket?.id}
@@ -168,7 +281,7 @@ export default function Tickets() {
               <X />
             </DrawerClose>
           </DrawerHeader>
-          <div className="flex-auto p-4">
+          <div className="flex flex-col gap-4 p-4">
             {Ticket.data?.ticket_message?.map((item: any) => {
               return (
                 <div
@@ -210,12 +323,36 @@ export default function Tickets() {
             })}
           </div>
           {ticket?.status === 'TICKET_PROCESSING' && (
-            <DrawerFooter>
-              <Textarea
-                className="resize-none"
+            <DrawerFooter className="flex w-full flex-row items-center gap-2">
+              <Input
                 placeholder="请在此输入您的问题，我们会尽快回复您。"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+                onKeyDown={(e) => {
+                  if (
+                    e.key === 'Enter' ||
+                    (e.keyCode === 13 && message.trim())
+                  ) {
+                    ButtonRef?.current?.click();
+                  }
+                }}
               />
-              <Button>发送信息</Button>
+              <Button
+                ref={ButtonRef}
+                onClick={async () => {
+                  if (!message) return;
+                  const result = await postCustomerTicketSendTicketMessage({
+                    ticket_id: ticket.id,
+                    message: message,
+                  });
+                  if (result.data.code === 0) {
+                    setMessage('');
+                    Ticket.refetch();
+                  }
+                }}
+              >
+                <Send />
+              </Button>
             </DrawerFooter>
           )}
         </DrawerContent>

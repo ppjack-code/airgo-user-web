@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { postCustomerOrderGetOrderList } from '@/service/api/customerApiOrder';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -69,7 +68,7 @@ export default function Orders() {
             )}
           >
             <CardTitle>订单 {item.out_trade_no}</CardTitle>
-            <CardDescription className="text-muted-foreground text-xs">
+            <CardDescription className="text-xs text-muted-foreground">
               创建时间{' '}
               <time dateTime={item.created_at}>
                 {format(new Date(item.created_at), 'yyyy-MM-dd HH:mm:ss')}
@@ -100,8 +99,8 @@ export default function Orders() {
               </li>
             </ul>
           </CardContent>
-          <CardFooter className="bg-muted/50 flex flex-row items-center justify-between border-t px-6 py-3">
-            <span className="text-muted-foreground text-xs">
+          <CardFooter className="flex flex-row items-center justify-between border-t bg-muted/50 px-6 py-3">
+            <span className="text-xs text-muted-foreground">
               更新时间{' '}
               <time dateTime={item.updated_at}>
                 {format(new Date(item.updated_at), 'yyyy-MM-dd HH:mm:ss')}
@@ -121,11 +120,6 @@ export default function Orders() {
           </CardFooter>
         </Card>
       )}
-      renderSkeleton={() =>
-        Array.from({ length: 5 }).map((_, index) => (
-          <Skeleton key={index} className="h-48 w-full rounded-xl" />
-        ))
-      }
     />
   );
 }

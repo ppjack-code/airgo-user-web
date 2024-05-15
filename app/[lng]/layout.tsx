@@ -48,14 +48,14 @@ export default function RootLayout({
       <head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       </head>
-      <ReactQueryProvider>
-        <ThemeProvider>
-          <body
-            className={cn(
-              'min-h-screen bg-background font-sans antialiased',
-              fontSans.variable,
-            )}
-          >
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          fontSans.variable,
+        )}
+      >
+        <ReactQueryProvider>
+          <ThemeProvider>
             <ScrollArea className="h-dvh max-h-screen w-dvw max-w-full">
               <AuthProvider>
                 <Header lng={lng} />
@@ -66,10 +66,10 @@ export default function RootLayout({
               </AuthProvider>
             </ScrollArea>
             <Toaster closeButton richColors dir={dir(lng)} />
-            <Scripts />
-          </body>
-        </ThemeProvider>
-      </ReactQueryProvider>
+          </ThemeProvider>
+        </ReactQueryProvider>
+        <Scripts />
+      </body>
     </html>
   );
 }

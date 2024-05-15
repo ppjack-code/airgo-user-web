@@ -9,12 +9,24 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { getCustomerFinanceGetCommissionSummary } from '@/service/api/customerApiFinance';
 import { useUserInfo } from '@/stores/userInfo';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Copy, CreditCard, Landmark, Users } from 'lucide-react';
 import { toast } from 'sonner';
+import WalletBalance from './balance';
+import WalletCommission from './commission';
+import WalletInvitation from './invitation';
 
 export default function Wallet() {
   const { userInfo } = useUserInfo();
+  const { data } = useSuspenseQuery({
+    queryKey: ['getCustomerFinanceGetCommissionSummary'],
+    queryFn: async () => {
+      const result = await getCustomerFinanceGetCommissionSummary();
+      return result.data.data || {};
+    },
+  });
   return (
     <div className="flex gap-6 align-top">
       <div className="min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-6 overflow-hidden">
@@ -27,9 +39,15 @@ export default function Wallet() {
                 <TabsTrigger value="commission">佣金</TabsTrigger>
                 <TabsTrigger value="invitation">邀请用户</TabsTrigger>
               </TabsList>
-              <TabsContent value="balance">余额明细列表</TabsContent>
-              <TabsContent value="commission">佣金明细列表</TabsContent>
-              <TabsContent value="commission">邀请明细列表</TabsContent>
+              <TabsContent value="balance">
+                <WalletBalance />
+              </TabsContent>
+              <TabsContent value="commission">
+                <WalletCommission />
+              </TabsContent>
+              <TabsContent value="invitation">
+                <WalletInvitation />
+              </TabsContent>
             </Tabs>
           </CardContent>
         </Card>
@@ -38,7 +56,7 @@ export default function Wallet() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">账户余额</CardTitle>
-            <CreditCard className="text-muted-foreground size-5" />
+            <CreditCard className="size-5 text-muted-foreground" />
           </CardHeader>
           <CardContent className="text-2xl font-bold">
             {userInfo?.balance.toFixed(2)}
@@ -47,19 +65,19 @@ export default function Wallet() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">邀请人数</CardTitle>
-            <Users className="text-muted-foreground size-5" />
+            <Users className="size-5 text-muted-foreground" />
           </CardHeader>
           <CardContent className="text-2xl font-bold">
-            {userInfo?.balance.toFixed(2)}
+            {data?.total_invitation}
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">邀请总收益</CardTitle>
-            <Landmark className="text-muted-foreground size-5" />
+            <Landmark className="size-5 text-muted-foreground" />
           </CardHeader>
           <CardContent className="text-2xl font-bold">
-            {userInfo?.balance.toFixed(2)}
+            {data?.total_commission_amount}
           </CardContent>
         </Card>
         <Card>
@@ -78,7 +96,7 @@ export default function Wallet() {
                       toast.success('邀请链接复制成功');
                     }}
                   >
-                    <Copy className="text-primary size-5" />
+                    <Copy className="size-5 text-primary" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>复制邀请链接</TooltipContent>
