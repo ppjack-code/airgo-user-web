@@ -56,7 +56,7 @@ export default function Login({
     }
   }
   return (
-    <div className="flex min-h-[calc(100vh-64px-302px-32px)] items-center justify-center ">
+    <div className="flex min-h-[calc(100vh-64px-58px-32px)] items-center justify-center ">
       <Card className="mx-auto max-w-md flex-1 text-center">
         <CardHeader>
           <CardTitle className="text-2xl">登录</CardTitle>
@@ -102,7 +102,7 @@ export default function Login({
               <Button type="submit" className="mx-auto w-2/3">
                 登录
               </Button>
-              <Link href="#" className="text-primary inline-block text-sm">
+              <Link href="#" className="inline-block text-sm text-primary">
                 忘记密码?
               </Link>
               <div className="text-sm">

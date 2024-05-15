@@ -75,7 +75,7 @@ export default function UserLayout({
           </Link>
         ))}
       </nav>
-      <div className="min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-6 ">
+      <div className="min-h-[calc(100vh-64px-58px-32px)] w-full flex-auto gap-6 ">
         {children}
       </div>
     </div>

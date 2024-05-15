@@ -120,7 +120,7 @@ export default function User() {
 
   return (
     <div className="flex flex-col-reverse gap-6 align-top lg:flex-row">
-      <div className="grid min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-4 overflow-hidden">
+      <div className="grid min-h-[calc(100vh-64px-58px-32px)] w-full flex-auto gap-4 overflow-hidden">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>最新公告</CardTitle>

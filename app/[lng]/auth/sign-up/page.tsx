@@ -95,7 +95,7 @@ export default function SignUp({
     }
   }
   return (
-    <div className="flex min-h-[calc(100vh-64px-302px-32px)] items-center justify-center ">
+    <div className="flex min-h-[calc(100vh-64px-58px-32px)] items-center justify-center ">
       <Card className="mx-auto max-w-md flex-1 text-center">
         <CardHeader>
           <CardTitle className="text-2xl">快速注册</CardTitle>

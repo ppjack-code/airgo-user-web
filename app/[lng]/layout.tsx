@@ -59,7 +59,7 @@ export default function RootLayout({
             <ScrollArea className="h-dvh max-h-screen w-dvw max-w-full">
               <AuthProvider>
                 <Header lng={lng} />
-                <main className="relative min-h-[calc(100vh-64px-302px)] w-screen p-4">
+                <main className="relative min-h-[calc(100vh-64px-58px)] w-screen p-4">
                   {children}
                 </main>
                 <Footer lng={lng} />

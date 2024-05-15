@@ -29,7 +29,7 @@ export default function Wallet() {
   });
   return (
     <div className="flex flex-col-reverse gap-6 align-top lg:flex-row">
-      <div className="min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-6 overflow-hidden">
+      <div className="min-h-[calc(100vh-64px-58px-32px)] w-full flex-auto gap-6 overflow-hidden">
         <Tabs defaultValue="balance">
           <TabsList className="flex h-auto w-full flex-wrap *:flex-1">
             <TabsTrigger value="balance">余额</TabsTrigger>
