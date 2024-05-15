@@ -50,7 +50,7 @@ export default function InfiniteScroll<T>({
       <div className={className}>
         {children ||
           dataSource.map((data) => {
-            return renderItem(data);
+            return renderItem?.(data);
           })}
         {loading && renderSkeleton?.()}
       </div>
