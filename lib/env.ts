@@ -8,6 +8,8 @@ export const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE || '';
 export const SITE_URL = process.env.SITE_URL || '';
 export const API_URL = process.env.API_URL || '';
 
+export const EMAIL = process.env.EMAIL || '';
+
 export const ANALYTICS = {
   baidu: process.env.BAIDU || '',
   google: process.env.GOOGLE || '',

@@ -15,6 +15,8 @@ const nextConfig = {
     SITE_URL: process.env.SITE_URL,
     API_URL: process.env.API_URL,
 
+    EMAIL: process.env.EMAIL,
+
     BAIDU: process.env.BAIDU,
     GOOGLE: process.env.GOOGLE,
     YANDEX: process.env.YANDEX,
