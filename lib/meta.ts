@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     default: 'AirGo | AirGo Panel',
     template: 'AirGo | %s | AirGo Panel',
   },
+  keywords: ['AirGo', 'AirGo Panel'],
+  description: 'AirGo Panel',
   other: {
     renderer: 'webkit',
   },
