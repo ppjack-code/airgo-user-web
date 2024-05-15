@@ -26,7 +26,7 @@ export default function UserLayout({
       href: `/${lng}/user`,
     },
     {
-      title: '商店',
+      title: '购买订阅',
       icon: <Store className="mr-2 size-5" />,
       href: `/${lng}/user/store`,
     },
@@ -34,16 +34,6 @@ export default function UserLayout({
       title: '我的订单',
       icon: <ListOrdered className="mr-2 size-5" />,
       href: `/${lng}/user/orders`,
-    },
-    {
-      title: '我的工单',
-      icon: <Bot className="mr-2 size-5" />,
-      href: `/${lng}/user/tickets`,
-    },
-    {
-      title: '财务中心',
-      icon: <Wallet className="mr-2 size-5" />,
-      href: `/${lng}/user/wallet`,
     },
     {
       title: '个人信息',
@@ -54,6 +44,16 @@ export default function UserLayout({
       title: '使用文档',
       icon: <Book className="mr-2 size-5" />,
       href: `/${lng}/user/docs`,
+    },
+    {
+      title: '我的工单',
+      icon: <Bot className="mr-2 size-5" />,
+      href: `/${lng}/user/tickets`,
+    },
+    {
+      title: '财务中心',
+      icon: <Wallet className="mr-2 size-5" />,
+      href: `/${lng}/user/wallet`,
     },
   ];
   const pathname = usePathname();
@@ -75,7 +75,7 @@ export default function UserLayout({
           </Link>
         ))}
       </nav>
-      <div className="min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-6 overflow-hidden">
+      <div className="min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-6 ">
         {children}
       </div>
     </div>

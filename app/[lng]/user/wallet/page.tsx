@@ -28,31 +28,26 @@ export default function Wallet() {
     },
   });
   return (
-    <div className="flex gap-6 align-top">
+    <div className="flex flex-col-reverse gap-6 align-top lg:flex-row">
       <div className="min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-6 overflow-hidden">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"></CardHeader>
-          <CardContent className="text-2xl font-bold">
-            <Tabs defaultValue="balance">
-              <TabsList className="flex h-auto w-full flex-wrap *:flex-1">
-                <TabsTrigger value="balance">余额</TabsTrigger>
-                <TabsTrigger value="commission">佣金</TabsTrigger>
-                <TabsTrigger value="invitation">邀请用户</TabsTrigger>
-              </TabsList>
-              <TabsContent value="balance">
-                <WalletBalance />
-              </TabsContent>
-              <TabsContent value="commission">
-                <WalletCommission />
-              </TabsContent>
-              <TabsContent value="invitation">
-                <WalletInvitation />
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+        <Tabs defaultValue="balance">
+          <TabsList className="flex h-auto w-full flex-wrap *:flex-1">
+            <TabsTrigger value="balance">余额</TabsTrigger>
+            <TabsTrigger value="commission">佣金</TabsTrigger>
+            <TabsTrigger value="invitation">邀请用户</TabsTrigger>
+          </TabsList>
+          <TabsContent value="balance">
+            <WalletBalance />
+          </TabsContent>
+          <TabsContent value="commission">
+            <WalletCommission />
+          </TabsContent>
+          <TabsContent value="invitation">
+            <WalletInvitation />
+          </TabsContent>
+        </Tabs>
       </div>
-      <div className="sticky top-0 hidden h-96 w-52 shrink-0 flex-col gap-2 md:flex lg:flex">
+      <div className="relative flex min-w-52 shrink-0 flex-col gap-4 lg:sticky lg:top-[84px] lg:h-full">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">账户余额</CardTitle>

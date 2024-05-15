@@ -2,7 +2,6 @@
 
 import SwitchLanguage from '@/components/switch-language';
 import SwitchThemeMode from '@/components/switch-theme-mode';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,12 +12,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTranslation } from '@/i18n/client';
 import { useUserInfo, userLogout } from '@/stores/userInfo';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import {
   Book,
   Bot,
   Home,
   ListOrdered,
   LogOut,
+  Menu,
   Store,
   User,
   Wallet,
@@ -31,6 +32,43 @@ export default function Header({ lng }: { lng: string }) {
   const { t } = useTranslation(lng, 'header');
   const { userInfo } = useUserInfo();
   const router = useRouter();
+  const navs = [
+    {
+      title: '主页',
+      icon: <Home className="mr-2 size-4" />,
+      href: `/${lng}/user`,
+    },
+    {
+      title: '购买订阅',
+      icon: <Store className="mr-2 size-4" />,
+      href: `/${lng}/user/store`,
+    },
+    {
+      title: '我的订单',
+      icon: <ListOrdered className="mr-2 size-4" />,
+      href: `/${lng}/user/orders`,
+    },
+    {
+      title: '个人信息',
+      icon: <User className="mr-2 size-4" />,
+      href: `/${lng}/user/profile`,
+    },
+    {
+      title: '使用文档',
+      icon: <Book className="mr-2 size-4" />,
+      href: `/${lng}/user/docs`,
+    },
+    {
+      title: '我的工单',
+      icon: <Bot className="mr-2 size-4" />,
+      href: `/${lng}/user/tickets`,
+    },
+    {
+      title: '财务中心',
+      icon: <Wallet className="mr-2 size-4" />,
+      href: `/${lng}/user/wallet`,
+    },
+  ];
   return (
     <header className="sticky top-0 z-50 flex w-full items-center justify-between gap-4 border-b backdrop-blur-md">
       <div className="container flex h-16 items-center justify-between">
@@ -58,93 +96,50 @@ export default function Header({ lng }: { lng: string }) {
               </Link>
             </>
           )}
-          <SwitchLanguage />
           <SwitchThemeMode />
+          <SwitchLanguage />
           {userInfo && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  className="rounded-full"
-                >
-                  <Avatar>
-                    <AvatarImage src={userInfo.avatar} alt="@shadcn" />
-                    <AvatarFallback>
-                      {userInfo.user_name.slice(0, 1).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user`);
-                  }}
-                >
-                  <Home className="mr-2 size-4" />
-                  主页
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user/store`);
-                  }}
-                >
-                  <Store className="mr-2 size-4" /> 商店
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user/docs`);
-                  }}
-                >
-                  <Book className="mr-2 size-4" /> 使用文档
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user/orders`);
-                  }}
-                >
-                  <ListOrdered className="mr-2 size-4" />
-                  我的订单
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user/profile`);
-                  }}
-                >
-                  <User className="mr-2 size-4" />
-                  个人信息
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user/tickets`);
-                  }}
-                >
-                  <Bot className="mr-2 size-4" />
-                  我的工单
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    router.push(`/${lng}/user/wallet`);
-                  }}
-                >
-                  <Wallet className="mr-2 size-4" />
-                  财务中心
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => {
-                    userLogout();
-                    router.push(`/${lng}`);
-                  }}
-                >
-                  <LogOut className="mr-2 size-4" />
-                  退出登录
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">
+                    <Avatar className="hidden size-5 md:inline-flex lg:inline-flex">
+                      <AvatarImage
+                        src={userInfo.avatar}
+                        alt={userInfo.user_name}
+                      />
+                      <AvatarFallback>
+                        {userInfo.user_name.slice(0, 1).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <Menu className="size-5 md:hidden lg:hidden" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {navs.map((nav, index) => (
+                    <DropdownMenuItem
+                      key={index}
+                      onClick={() => {
+                        router.push(nav.href);
+                      }}
+                    >
+                      {nav.icon}
+                      {nav.title}
+                    </DropdownMenuItem>
+                  ))}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => {
+                      userLogout();
+                      router.push(`/${lng}`);
+                    }}
+                  >
+                    <LogOut className="mr-2 size-4" />
+                    退出登录
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
           )}
         </div>
       </div>

@@ -119,8 +119,8 @@ export default function User() {
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      <section>
+    <div className="flex flex-col-reverse gap-6 align-top lg:flex-row">
+      <div className="grid min-h-[calc(100vh-64px-302px-32px)] w-full flex-auto gap-4 overflow-hidden">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>最新公告</CardTitle>
@@ -130,37 +130,6 @@ export default function User() {
             暂无公告
           </CardContent>
         </Card>
-      </section>
-      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">账户余额</CardTitle>
-            <CreditCard className="size-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">
-            {userInfo?.balance.toFixed(2)}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">佣金总额</CardTitle>
-            <DollarSign className="size-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">
-            {CommissionSummary.data.total_commission_amount}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">邀请的人数</CardTitle>
-            <Users className="size-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">
-            {CommissionSummary.data.total_invitation}
-          </CardContent>
-        </Card>
-      </section>
-      <section className="grid gap-4">
         <h2 className="font-semibold tracking-tight">我的订阅</h2>
         {CustomerServiceList.data.length > 0 ? (
           CustomerServiceList.data.map((item: any) => (
@@ -327,7 +296,36 @@ export default function User() {
         ) : (
           <div className="pt-4 text-sm text-muted-foreground">暂无订阅</div>
         )}
-      </section>
+      </div>
+      <div className="relative flex min-w-52 shrink-0 flex-col gap-4 lg:sticky lg:top-[84px] lg:h-full">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">账户余额</CardTitle>
+            <CreditCard className="size-5 text-muted-foreground" />
+          </CardHeader>
+          <CardContent className="text-2xl font-bold">
+            {userInfo?.balance.toFixed(2)}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">佣金总额</CardTitle>
+            <DollarSign className="size-5 text-muted-foreground" />
+          </CardHeader>
+          <CardContent className="text-2xl font-bold">
+            {CommissionSummary.data.total_commission_amount}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">邀请的人数</CardTitle>
+            <Users className="size-5 text-muted-foreground" />
+          </CardHeader>
+          <CardContent className="text-2xl font-bold">
+            {CommissionSummary.data.total_invitation}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
