@@ -64,7 +64,7 @@ function getSubApps(backend_url: string, sub_uuid: string, sub_name: string) {
       name: 'Quantumult X',
     },
     {
-      url: `sing-box://import-remote-profile??url=${sub_url}#${sub_name}`,
+      url: `sing-box://import-remote-profile?url=${encodeURI(sub_url)}#${sub_name}`,
       img: '/images/subs/Sing Box.svg',
       name: 'Sing Box',
     },
@@ -179,7 +179,7 @@ export default function User() {
                   <Button size="sm">续费</Button>
                 </div>
               </CardHeader>
-              <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5">
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
                 <CardContent>
                   <CardDescription>剩余</CardDescription>
                   <CardTitle className="text-3xl">
@@ -252,11 +252,9 @@ export default function User() {
                             (app) => (
                               <div
                                 key={app.name}
-                                className="flex size-full flex-col items-center justify-between gap-2"
+                                className="flex size-full flex-col items-center justify-between gap-2 text-xs text-muted-foreground"
                               >
-                                <span className="text-sm text-muted-foreground">
-                                  {app.name}
-                                </span>
+                                <span>{app.name}</span>
                                 <Image
                                   src={app.img}
                                   alt={app.name}
@@ -265,14 +263,20 @@ export default function User() {
                                 />
 
                                 <div className="flex">
-                                  <Button size="sm" variant="secondary">
+                                  <Button
+                                    size="sm"
+                                    variant="secondary"
+                                    className="px-1.5 "
+                                  >
                                     下载
                                   </Button>
                                   <Button
                                     size="sm"
                                     onClick={() => {
+                                      navigator.clipboard.writeText(app.url);
                                       window.location.href = app.url;
                                     }}
+                                    className="p-2"
                                   >
                                     导入
                                   </Button>
