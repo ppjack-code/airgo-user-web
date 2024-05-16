@@ -102,7 +102,10 @@ export default function Login({
               <Button type="submit" className="mx-auto w-2/3">
                 登录
               </Button>
-              <Link href="#" className="inline-block text-sm text-primary">
+              <Link
+                href={`/${lng}/auth/reset`}
+                className="inline-block text-sm text-primary"
+              >
                 忘记密码?
               </Link>
               <div className="text-sm">
