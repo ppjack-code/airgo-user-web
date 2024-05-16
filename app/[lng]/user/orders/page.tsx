@@ -1,5 +1,6 @@
 'use client';
 
+import Empty from '@/components/empty';
 import InfiniteScroll from '@/components/infinite-scroll';
 import { Button } from '@/components/ui/button';
 import {
@@ -48,7 +49,7 @@ export default function Orders() {
     });
   const dataSource =
     data?.pages.flatMap((page) => page?.data!).filter((item) => item) || [];
-
+  if (!dataSource.length) return <Empty />;
   return (
     <InfiniteScroll
       dataSource={dataSource}

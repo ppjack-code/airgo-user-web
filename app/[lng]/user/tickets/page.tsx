@@ -1,5 +1,6 @@
 'use client';
 
+import Empty from '@/components/empty';
 import InfiniteScroll from '@/components/infinite-scroll';
 import {
   AlertDialog,
@@ -182,89 +183,96 @@ export default function Tickets() {
           </AlertDialogContent>
         </AlertDialog>
       </div>
-      <InfiniteScroll
-        dataSource={dataSource}
-        hasMore={hasNextPage}
-        loadMore={fetchNextPage}
-        loading={isFetching}
-        className="flex flex-col gap-4"
-        renderItem={(item) => (
-          <Card key={item.id} className="overflow-hidden">
-            <CardHeader
-              className={cn(
-                'flex flex-col items-start justify-between bg-muted/50 px-6 py-3 md:flex-row md:items-center',
-                {
-                  'bg-green-500/20': item.status === 'TICKET_PROCESSING',
-                },
-              )}
-            >
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription className="text-xs text-muted-foreground">
-                创建时间{' '}
-                <time dateTime={item.created_at}>
-                  {format(new Date(item.created_at), 'yyyy-MM-dd HH:mm:ss')}
-                </time>
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6 text-sm">{item.details}</CardContent>
-            <CardFooter className="flex flex-row items-center justify-between border-t bg-muted/50 px-6 py-3">
-              <span className="text-xs text-muted-foreground">
-                更新时间{' '}
-                <time dateTime={item.updated_at}>
-                  {format(new Date(item.updated_at), 'yyyy-MM-dd HH:mm:ss')}
-                </time>
-              </span>
-              {item.status === 'TICKET_PROCESSING' && (
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={async () => {
-                      const result = await postCustomerTicketUpdateUserTicket({
-                        id: item.id,
-                        status: 'TICKET_CLOSED',
-                      });
-                      if (result.data.code === 0) {
-                        Ticket.refetch();
-                      }
-                    }}
-                  >
-                    <MessageSquareX className="mr-2 size-5" /> 关闭工单
-                  </Button>
-                  <Button
-                    size="sm"
-                    onClick={() => {
-                      setTicket(item);
-                    }}
-                  >
-                    <MessagesSquare className="mr-2 size-5" /> 联系客服
-                  </Button>
-                </div>
-              )}
-              {item.status === 'TICKET_CLOSED' && (
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-muted-foreground"
-                  >
-                    已结束
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      setTicket(item);
-                    }}
-                  >
-                    <MessagesSquare className="mr-2 size-5" /> 查看工单
-                  </Button>
-                </div>
-              )}
-            </CardFooter>
-          </Card>
-        )}
-      />
+      {dataSource.length === 0 ? (
+        <Empty />
+      ) : (
+        <InfiniteScroll
+          dataSource={dataSource}
+          hasMore={hasNextPage}
+          loadMore={fetchNextPage}
+          loading={isFetching}
+          className="flex flex-col gap-4"
+          renderItem={(item) => (
+            <Card key={item.id} className="overflow-hidden">
+              <CardHeader
+                className={cn(
+                  'flex flex-col items-start justify-between bg-muted/50 px-6 py-3 md:flex-row md:items-center',
+                  {
+                    'bg-green-500/20': item.status === 'TICKET_PROCESSING',
+                  },
+                )}
+              >
+                <CardTitle>{item.title}</CardTitle>
+                <CardDescription className="text-xs text-muted-foreground">
+                  创建时间{' '}
+                  <time dateTime={item.created_at}>
+                    {format(new Date(item.created_at), 'yyyy-MM-dd HH:mm:ss')}
+                  </time>
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6 text-sm">{item.details}</CardContent>
+              <CardFooter className="flex flex-row items-center justify-between border-t bg-muted/50 px-6 py-3">
+                <span className="text-xs text-muted-foreground">
+                  更新时间{' '}
+                  <time dateTime={item.updated_at}>
+                    {format(new Date(item.updated_at), 'yyyy-MM-dd HH:mm:ss')}
+                  </time>
+                </span>
+                {item.status === 'TICKET_PROCESSING' && (
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={async () => {
+                        const result = await postCustomerTicketUpdateUserTicket(
+                          {
+                            id: item.id,
+                            status: 'TICKET_CLOSED',
+                          },
+                        );
+                        if (result.data.code === 0) {
+                          Ticket.refetch();
+                        }
+                      }}
+                    >
+                      <MessageSquareX className="mr-2 size-5" /> 关闭工单
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setTicket(item);
+                      }}
+                    >
+                      <MessagesSquare className="mr-2 size-5" /> 联系客服
+                    </Button>
+                  </div>
+                )}
+                {item.status === 'TICKET_CLOSED' && (
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-muted-foreground"
+                    >
+                      已结束
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setTicket(item);
+                      }}
+                    >
+                      <MessagesSquare className="mr-2 size-5" /> 查看工单
+                    </Button>
+                  </div>
+                )}
+              </CardFooter>
+            </Card>
+          )}
+        />
+      )}
+
       <Drawer
         open={!!ticket?.id}
         onOpenChange={(open) => {

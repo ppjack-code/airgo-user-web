@@ -1,5 +1,6 @@
 'use client';
 
+import Empty from '@/components/empty';
 import InfiniteScroll from '@/components/infinite-scroll';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -77,7 +78,15 @@ export default function WalletBalance() {
             </TableRow>
           ))}
         </TableBody>
-        <TableCaption>{isFetching ? '加载中...' : '我是有底线的'}</TableCaption>
+        <TableCaption>
+          {dataSource.length === 0 ? (
+            <Empty />
+          ) : isFetching ? (
+            '加载中...'
+          ) : (
+            '我是有底线的'
+          )}
+        </TableCaption>
       </Table>
     </InfiniteScroll>
   );

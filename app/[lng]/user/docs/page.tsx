@@ -1,5 +1,6 @@
 'use client';
 
+import Empty from '@/components/empty';
 import InfiniteScroll from '@/components/infinite-scroll';
 import { Button } from '@/components/ui/button';
 import {
@@ -66,6 +67,8 @@ export default function Docs() {
   const dataSource =
     data?.pages.flatMap((page) => page?.data!).filter((item) => item) || [];
   const [article, setArticle] = useState<any>();
+
+  if (!dataSource.length) return <Empty />;
 
   return (
     <Fragment>
