@@ -135,7 +135,7 @@ export default function User() {
           CustomerServiceList.data.map((item: any) => (
             <Card key={item.id}>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-2xl font-medium">
                   {item.subject}
                 </CardTitle>
                 <div className="flex gap-2">
@@ -179,11 +179,10 @@ export default function User() {
                   <Button size="sm">续费</Button>
                 </div>
               </CardHeader>
-
               <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5">
                 <CardContent>
                   <CardDescription>剩余</CardDescription>
-                  <CardTitle className="text-4xl">
+                  <CardTitle className="text-3xl">
                     {(
                       item.total_bandwidth -
                       item.used_up -
@@ -194,26 +193,26 @@ export default function User() {
                 </CardContent>
                 <CardContent>
                   <CardDescription>已用</CardDescription>
-                  <CardTitle className="text-4xl">
+                  <CardTitle className="text-3xl">
                     {(item.used_up + item.used_down).toFixed(2)}
                     <span className="text-base"> GB</span>
                   </CardTitle>
                 </CardContent>
                 <CardContent className="flex flex-col justify-between">
-                  <CardDescription>下次流量重置时间</CardDescription>
-                  <CardTitle className="text-xl">
+                  <CardDescription>下次重置时间</CardDescription>
+                  <CardTitle className="text-lg">
                     {getNextTrafficResetTime(item.traffic_reset_day)}
                   </CardTitle>
                 </CardContent>
                 <CardContent className="flex flex-col justify-between">
                   <CardDescription>开始时间</CardDescription>
-                  <CardTitle className="text-xl">
+                  <CardTitle className="text-lg">
                     {format(item.service_start_at, 'yyyy-MM-dd')}
                   </CardTitle>
                 </CardContent>
                 <CardContent className="flex flex-col justify-between">
                   <CardDescription>到期时间</CardDescription>
-                  <CardTitle className="text-xl">
+                  <CardTitle className="text-lg">
                     {format(item.service_end_at, 'yyyy-MM-dd')}
                   </CardTitle>
                 </CardContent>
@@ -236,14 +235,14 @@ export default function User() {
                               订阅地址 {index + 1}
                             </CardTitle>
                             <span
-                              className="mr-4 flex cursor-pointer rounded p-2 text-sm text-muted-foreground hover:bg-accent"
+                              className="mr-4 flex cursor-pointer rounded p-2 text-sm text-primary hover:bg-accent"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 navigator.clipboard.writeText(subAddress);
                                 toast.success('复制成功');
                               }}
                             >
-                              <Copy className="mr-2 size-5 text-muted-foreground" />
+                              <Copy className="mr-2 size-5" />
                               复制
                             </span>
                           </div>
@@ -251,40 +250,46 @@ export default function User() {
                         <AccordionContent className="grid grid-cols-3 gap-4 lg:grid-cols-7">
                           {getSubApps(url, item.sub_uuid, config.sub_name).map(
                             (app) => (
-                              <Button
+                              <div
                                 key={app.name}
-                                variant="ghost"
-                                className="flex size-full flex-col items-center gap-2"
-                                onClick={() => {
-                                  window.location.href = app.url;
-                                }}
+                                className="flex size-full flex-col items-center justify-between gap-2"
                               >
-                                <Image
-                                  src={app.img}
-                                  alt={app.name}
-                                  width={102}
-                                  height={102}
-                                />
                                 <span className="text-sm text-muted-foreground">
                                   {app.name}
                                 </span>
-                              </Button>
+                                <Image
+                                  src={app.img}
+                                  alt={app.name}
+                                  width={50}
+                                  height={50}
+                                />
+
+                                <div className="flex">
+                                  <Button size="sm" variant="secondary">
+                                    下载
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    onClick={() => {
+                                      window.location.href = app.url;
+                                    }}
+                                  >
+                                    导入
+                                  </Button>
+                                </div>
+                              </div>
                             ),
                           )}
-                          <Button
-                            variant="ghost"
-                            className="hidden size-full flex-col items-center gap-2 md:flex lg:flex"
-                          >
+                          <div className="hidden size-full flex-col items-center justify-between gap-2 text-sm text-muted-foreground md:flex lg:flex">
+                            <span>二维码</span>
                             <QRCode
                               value={subAddress}
-                              size={102}
+                              size={80}
                               bgColor="transparent"
                               fgColor="rgb(59, 130, 246)"
                             />
-                            <span className="text-sm text-muted-foreground">
-                              请扫描二维码订阅
-                            </span>
-                          </Button>
+                            <span>扫描订阅</span>
+                          </div>
                         </AccordionContent>
                       </AccordionItem>
                     );

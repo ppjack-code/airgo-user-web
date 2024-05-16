@@ -7,26 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // disallow: '/private/',
-      },
-      {
-        userAgent: 'Googlebot',
-        allow: ['/'],
-        // disallow: '/private/',
-      },
-      {
-        userAgent: 'bingbot',
-        allow: ['/'],
-        // disallow: '/private/',
-      },
-      {
-        userAgent: 'Baiduspider',
-        allow: ['/'],
-        // disallow: '/private/',
-      },
-      {
-        userAgent: 'YandexBot',
-        allow: ['/'],
+        disallow: '/user/',
       },
     ],
     host: SITE_URL,
