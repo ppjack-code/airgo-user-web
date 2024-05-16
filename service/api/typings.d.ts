@@ -146,6 +146,11 @@ declare namespace API {
     email_subject?: string;
   };
 
+  type EmailRequest = {
+    email_type: string;
+    target_email: string;
+  };
+
   type Epay = {
     /** api地址 */
     epay_api_url?: string;

@@ -11,9 +11,16 @@ export async function getPublicCodeGetBase64Captcha(options?: { [key: string]: a
 }
 
 /** 获取邮箱验证码 POST /api/public/code/getEmailCode */
-export async function postPublicCodeGetEmailCode(options?: { [key: string]: any }) {
+export async function postPublicCodeGetEmailCode(
+  body: API.EmailRequest,
+  options?: { [key: string]: any },
+) {
   return request<API.ResponseStruct>('/api/public/code/getEmailCode', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }
