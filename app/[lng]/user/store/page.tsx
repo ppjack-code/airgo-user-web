@@ -19,7 +19,7 @@ export default function Store() {
         goods_type: 'subscribe',
       });
       const data =
-        result.data?.data.map((item: any) => ({
+        result.data?.data?.map((item: any) => ({
           ...item,
           node_speed_limit: item.node_speed_limit / 1024 / 1024,
           total_bandwidth: item.total_bandwidth / 1024 / 1024 / 1024,
