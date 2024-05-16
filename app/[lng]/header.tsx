@@ -85,7 +85,7 @@ export default function Header({ lng }: { lng: string }) {
           />
           <span>Air Go</span>
         </Link>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           {!userInfo && (
             <>
               <Link href={`/${lng}/auth/login`}>
@@ -100,19 +100,16 @@ export default function Header({ lng }: { lng: string }) {
           <SwitchLanguage />
           {userInfo && (
             <>
+              <Avatar className="size-6">
+                <AvatarImage src={userInfo.avatar} alt={userInfo.user_name} />
+                <AvatarFallback className="flex size-full items-center justify-center rounded-full bg-muted-foreground text-center">
+                  {userInfo.user_name.slice(0, 1).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">
-                    <Avatar className="hidden size-5 md:inline-flex lg:inline-flex">
-                      <AvatarImage
-                        src={userInfo.avatar}
-                        alt={userInfo.user_name}
-                      />
-                      <AvatarFallback>
-                        {userInfo.user_name.slice(0, 1).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <Menu className="size-5 md:hidden lg:hidden" />
+                  <Button variant="outline" size="icon">
+                    <Menu className="size-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

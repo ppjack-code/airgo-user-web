@@ -16,13 +16,16 @@ export default function SwitchLanguage() {
 
   return (
     <Select value={lng} onValueChange={changeLanguage}>
-      <SelectTrigger aria-label="Select Language">
+      <SelectTrigger
+        aria-label="Select Language"
+        className="w-10 border-none p-0 shadow-none"
+      >
         <Icon
           icon={`flagpack:${country?.alpha2.toLowerCase()}`}
           className="size-5"
         />
       </SelectTrigger>
-      <SelectContent className="border-2">
+      <SelectContent align="end">
         {languages.map(getCountry).map((item) => (
           <SelectItem
             key={`${item?.lang}-${item?.alpha2}`}

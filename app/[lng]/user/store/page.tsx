@@ -122,13 +122,13 @@ export default function Store() {
   }
   return (
     <Tabs defaultValue="month" value={type} onValueChange={setType}>
-      <TabsList className="mb-4 flex h-auto w-full flex-wrap *:flex-1">
+      <TabsList className="mb-8 flex h-auto w-full flex-wrap *:flex-1">
         <TabsTrigger value="month">月付</TabsTrigger>
         <TabsTrigger value="quarter" className="relative">
           季付{' '}
           <Badge
             variant={type === 'quarter' ? 'default' : 'secondary'}
-            className={cn('absolute left-2/3 ', {
+            className={cn('absolute top-full mt-2', {
               'text-muted-foreground': type !== 'quarter',
             })}
           >
@@ -139,7 +139,7 @@ export default function Store() {
           年付{' '}
           <Badge
             variant={type === 'year' ? 'default' : 'secondary'}
-            className={cn('absolute left-2/3 ', {
+            className={cn('absolute top-full mt-2', {
               'text-muted-foreground': type !== 'year',
             })}
           >
