@@ -2192,7 +2192,7 @@ packages:
         optional: true
     dependencies:
       '@langchain/core': 0.1.63(openai@4.46.1)
-      '@langchain/openai': 0.0.29
+      '@langchain/openai': 0.0.31
       expr-eval: 2.0.2
       flat: 5.0.2
       langsmith: 0.1.22(openai@4.46.1)
@@ -2224,8 +2224,8 @@ packages:
       - openai
     dev: true
 
-  /@langchain/openai@0.0.29:
-    resolution: {integrity: sha512-NMoVgePqflbI8Dzi7QhBAS9wRiaVxIkYkG/RYLU979t/ZLWQjf+9tijc/27UtCP7w/UYCGX/qgQAho40dsZ7LA==}
+  /@langchain/openai@0.0.31:
+    resolution: {integrity: sha512-fkuXzzaRk4NZX3xXP3fzg74fIEFmTSnTTHuIt+3NpDW4qgVfoJ6/hK6iVarCM0L5F/IxNAgqdEPXFFCAAmJuUQ==}
     engines: {node: '>=18'}
     dependencies:
       '@langchain/core': 0.1.63(openai@4.46.1)
@@ -2275,7 +2275,7 @@ packages:
     dependencies:
       '@inkjs/ui': 1.0.0(ink@4.4.1)
       '@langchain/core': 0.1.63(openai@4.46.1)
-      '@langchain/openai': 0.0.29
+      '@langchain/openai': 0.0.31
       '@lobehub/cli-ui': 1.10.0(@inkjs/ui@1.0.0)(consola@3.2.3)(ink@4.4.1)(react@18.3.1)
       chalk: 5.3.0
       commander: 11.1.0
@@ -8634,7 +8634,7 @@ packages:
       '@anthropic-ai/sdk': 0.9.1
       '@langchain/community': 0.0.54
       '@langchain/core': 0.1.63(openai@4.46.1)
-      '@langchain/openai': 0.0.29
+      '@langchain/openai': 0.0.31
       '@langchain/textsplitters': 0.0.0
       axios: 1.6.8
       binary-extensions: 2.3.0

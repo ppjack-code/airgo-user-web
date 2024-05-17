@@ -11,7 +11,15 @@ const request = axios.create({
 request.interceptors.request.use(
   async (request: InternalAxiosRequestConfig) => {
     let Authorization;
-    if (isBrowser) Authorization = Cookies.get('Authorization');
+    if (isBrowser) {
+      Authorization = Cookies.get('Authorization');
+    } else {
+      const cookies = request.headers?.cookie;
+      Authorization = cookies
+        .split(';')
+        .find((cookie: string) => cookie.trim().startsWith('Authorization='))
+        .split('=')[1];
+    }
     if (Authorization) request.headers.Authorization = Authorization;
     return request;
   },
