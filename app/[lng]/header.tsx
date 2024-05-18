@@ -100,12 +100,12 @@ export default function Header({ lng }: { lng: string }) {
           )}
           {TELEGRAM && (
             <Link href={TELEGRAM} target="_blank">
-              <Icon icon="logos:telegram" className="size-6" />
+              <Icon icon="logos:telegram" />
             </Link>
           )}
           {GITHUB && (
             <Link href={GITHUB} target="_blank">
-              <Icon icon="logos:github-icon" className="size-6" />
+              <Icon icon="logos:github-icon" className="dark:invert" />
             </Link>
           )}
           <SwitchThemeMode />
