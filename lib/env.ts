@@ -3,7 +3,7 @@ export const isBrowser = typeof window !== 'undefined';
 export const DEFAULT_MODE = process.env.DEFAULT_MODE || 'dark';
 export const DEFAULT_THEME = process.env.DEFAULT_THEME || 'blue';
 
-export const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE || '';
+export const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE || 'zh-CN';
 
 export const SITE_URL = process.env.SITE_URL || '';
 export const API_URL = process.env.API_URL || '';
