@@ -146,7 +146,7 @@ nnext-template
 
 ### 部署
 
-暂无
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpura-panel%2Fairgo-user-web&env=DEFAULT_MODE,DEFAULT_THEME,DEFAULT_LANGUAGE,SITE_URL,API_URL,EMAIL,GOOGLE,BAIDU,YANDEX,FACEBOOK&envDescription=%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&envLink=https%3A%2F%2Fraw.githubusercontent.com%2Fpura-panel%2Fairgo-user-web%2Fmain%2F.env.development&project-name=airgo-user-web&repository-name=airgo-user-web)
 
 ### 贡献者
 
