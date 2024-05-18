@@ -1,5 +1,6 @@
 'use client';
 
+import Icon from '@/components/Icon';
 import SwitchLanguage from '@/components/switch-language';
 import SwitchThemeMode from '@/components/switch-theme-mode';
 import { Button } from '@/components/ui/button';
@@ -11,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useTranslation } from '@/i18n/client';
+import { GITHUB, TELEGRAM } from '@/lib/env';
 import { useUserInfo, userLogout } from '@/stores/userInfo';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import {
@@ -95,6 +97,16 @@ export default function Header({ lng }: { lng: string }) {
                 <Button variant="outline">{t('sign-up')}</Button>
               </Link>
             </>
+          )}
+          {TELEGRAM && (
+            <Link href={TELEGRAM} target="_blank">
+              <Icon icon="logos:telegram" className="size-6" />
+            </Link>
+          )}
+          {GITHUB && (
+            <Link href={GITHUB} target="_blank">
+              <Icon icon="logos:github-icon" className="size-6" />
+            </Link>
           )}
           <SwitchThemeMode />
           <SwitchLanguage />

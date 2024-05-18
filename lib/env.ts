@@ -16,3 +16,6 @@ export const ANALYTICS = {
   yandex: process.env.YANDEX || '',
   facebook: process.env.FACEBOOK || '',
 };
+
+export const GITHUB = process.env.GITHUB || '';
+export const TELEGRAM = process.env.TELEGRAM || '';

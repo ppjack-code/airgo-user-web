@@ -47,7 +47,7 @@ export async function postCustomerOrderGetOrderList(
   });
 }
 
-/** 订单预创建，生成系统订单（提交订单） POST /api/customer/order/preCreateOrder */
+/** 订单预创建，生成系统订单（提交订单） duratip默认为订购时长，当 -1 时代表不限时 POST /api/customer/order/preCreateOrder */
 export async function postCustomerOrderPreCreateOrder(
   body: API.Order,
   options?: { [key: string]: any },

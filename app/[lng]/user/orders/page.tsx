@@ -48,7 +48,10 @@ export default function Orders() {
       },
     });
   const dataSource =
-    data?.pages.flatMap((page) => page?.data!).filter((item) => item) || [];
+    data?.pages
+      .flatMap((page) => page?.data!)
+      .filter((item) => item)
+      .filter((item) => item.trade_status !== 'TRADE_CLOSED') || [];
   if (!dataSource.length) return <Empty />;
   return (
     <InfiniteScroll

@@ -178,7 +178,7 @@ export default function User() {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
-                    <Button size="sm">续费</Button>
+                    {item.is_renew && <Button size="sm">续费</Button>}
                   </div>
                 </CardHeader>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
@@ -215,7 +215,9 @@ export default function User() {
                   <CardContent className="flex flex-col justify-between">
                     <CardDescription>到期时间</CardDescription>
                     <CardTitle className="text-lg">
-                      {format(item.service_end_at, 'yyyy-MM-dd')}
+                      {item?.service_end_at
+                        ? format(item?.service_end_at, 'yyyy-MM-dd')
+                        : '永久'}
                     </CardTitle>
                   </CardContent>
                 </div>

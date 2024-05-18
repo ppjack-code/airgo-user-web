@@ -273,6 +273,7 @@ declare namespace API {
     deliver_text?: string;
     deliver_type?: string;
     des?: string;
+    enable_traffic_reset?: boolean;
     /** 基础参数 */
     goods_order?: number;
     goods_type?: string;
@@ -286,12 +287,16 @@ declare namespace API {
     nodes?: Node[];
     /** todo 前端修改 */
     price?: string;
+    price_12_month?: string;
+    /** 订阅参数 */
+    price_3_month?: string;
+    price_6_month?: string;
+    price_unlimited_duration?: string;
     quota?: number;
     /** 充值参数 */
     recharge_amount?: string;
     stock?: number;
     subject?: string;
-    /** 订阅参数 */
     total_bandwidth?: number;
     updated_at?: string;
   };

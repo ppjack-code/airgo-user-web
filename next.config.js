@@ -21,6 +21,9 @@ const nextConfig = {
     GOOGLE: process.env.GOOGLE,
     YANDEX: process.env.YANDEX,
     FACEBOOK: process.env.FACEBOOK,
+
+    GITHUB: process.env.GITHUB,
+    TELEGRAM: process.env.TELEGRAM,
   },
   images: {
     remotePatterns: [

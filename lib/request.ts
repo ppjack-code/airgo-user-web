@@ -5,21 +5,14 @@ import { API_URL, isBrowser } from './env';
 
 const request = axios.create({
   baseURL: API_URL,
+  withCredentials: true,
   // timeout: 10000,
 });
 
 request.interceptors.request.use(
   async (request: InternalAxiosRequestConfig) => {
     let Authorization;
-    if (isBrowser) {
-      Authorization = Cookies.get('Authorization');
-    } else {
-      const cookies = request.headers?.cookie;
-      Authorization = cookies
-        .split(';')
-        .find((cookie: string) => cookie.trim().startsWith('Authorization='))
-        .split('=')[1];
-    }
+    if (isBrowser) Authorization = Cookies.get('Authorization');
     if (Authorization) request.headers.Authorization = Authorization;
     return request;
   },

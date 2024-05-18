@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/accordion';
 import { Progress } from '@/components/ui/progress';
 import { getTranslation } from '@/i18n';
-import { ArrowRight, JapaneseYen } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
@@ -43,17 +43,10 @@ export default async function Home({
           >
             {t('start')} <ArrowRight className="ml-1 size-5" />
           </Link>
-          <Link
-            href={`/${lng}/pricing`}
-            className="flex items-center px-4 font-medium"
-          >
-            <JapaneseYen className="mr-1 size-5" />
-            {t('price')}
-          </Link>
         </div>
       </section>
       <section className="container relative my-12 h-12 w-full overflow-hidden md:my-16 lg:my-24">
-        <div className="animate-scroll-x absolute left-0 top-0 flex">
+        <div className="absolute left-0 top-0 flex animate-scroll-x">
           {[
             'facebook',
             'google',
