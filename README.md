@@ -146,7 +146,9 @@ nnext-template
 
 ### 部署
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpura-panel%2Fairgo-user-web&env=DEFAULT_MODE,DEFAULT_THEME,DEFAULT_LANGUAGE,SITE_URL,API_URL,EMAIL,GOOGLE,BAIDU,YANDEX,FACEBOOK&envDescription=%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&envLink=https%3A%2F%2Fraw.githubusercontent.com%2Fpura-panel%2Fairgo-user-web%2Fmain%2F.env.development&project-name=airgo-user-web&repository-name=airgo-user-web)
+一键部署，请记得修改变量哦 ！！！
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpura-panel%2Fairgo-user-web&env=SITE_URL,API_URL,EMAIL&envDescription=%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%AF%B4%E6%98%8E%E5%9C%A8%E5%8F%B3%E8%BE%B9%E6%9B%B4%E5%A4%9A%20-%3E&envLink=https%3A%2F%2Fraw.githubusercontent.com%2Fpura-panel%2Fairgo-user-web%2Fmain%2F.env.development&project-name=airgo-user-web&repository-name=airgo-user-web)
 
 ### 贡献者
 
